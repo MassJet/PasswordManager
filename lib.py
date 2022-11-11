@@ -7,6 +7,9 @@ from cryptography.hazmat.backends import default_backend
 from os.path import expanduser
 import base64
 
+from typing import Tuple
+
+
 CONF = str()
 MASTER = str()
 
@@ -20,11 +23,11 @@ else:
 def printheader():
     
     print("-------------------------------------")
-    print("             Sealed Bottle🍾         ")
+    print("             MassPass         ")
     print("-------------------------------------")
 
 
-def auth() -> tuple[bool, str]:
+def auth() -> Tuple[bool, str]:
     global MASTER
     import getpass
     user_input = getpass.getpass()
@@ -53,3 +56,4 @@ def list_pws(master: str):
 # write a password
 def write_pw():
     print('list password')
+
