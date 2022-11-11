@@ -1,38 +1,55 @@
+from hashlib import pbkdf2_hmac
+import keyring, platform, sys, json, os
+from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.backends import default_backend
+from os.path import expanduser
+import base64
+
+CONF = str()
+MASTER = str()
+
+
+if "macOS" or "linux" in platform.platform().lower():
+    CONF = expanduser("~")+"/.sb/"
+else: 
+    sys.stderr.write("No preset config path for windows yet! Please enter Config path to use: ")
+    sys.stderr.flush()
+    CONF = input()
 def printheader():
-    """
-    Prints Header for app
-
-    """
+    
     print("-------------------------------------")
-    print("       Simple Password Manager")
+    print("             Sealed Bottle🍾         ")
     print("-------------------------------------")
 
 
+def auth() -> tuple[bool, str]:
+    global MASTER
+    import getpass
+    user_input = getpass.getpass()
+    MASTER = keyring.get_password('sbTokenService', 'sb')
+    if user_input == MASTER:
+        return (True, MASTER)
+    else: return (False, str())
+# Interact w/ user event loop
 def maineventloop():
-    """
-    Main event loop that interacts with user
-
-    """
+    
     while True:
-        cmd = input("Will you [L]ist your passwords, [W]rite a password, or E[x]it the manager?").strip().lower()
+        cmd = input("Choose one of the following commands: [l]ist, [a]dd, [g]et, [r]emove, [c]onfig, e[x]it:\t").strip().lower()
         if cmd == 'l':
-            listpassword()
+            list_pws(MASTER)
         elif cmd == 'w':
-            writepassword()
+            write_pw()
         elif cmd == 'x':
-            break
+            print("Goodbye!")
+            quit(0)
 
-
-def listpassword():
-    """
-    Lists your passwords
-
-    """
-    print('list p[asswrod')
-
-def writepassword():
-    """
-    Writes password to pswd.bat file
-
-    """
+# list all passwords
+def list_pws(master: str):
+    #TODO
+    pass
+    
+# write a password
+def write_pw():
     print('list password')
