@@ -1,12 +1,12 @@
-import modules
+import lib
 
 
 
 
 
 def main():
-    modules.printheader()
-    modules.maineventloop()
+    lib.printheader()
+    lib.maineventloop()
 
 
 if __name__ == '__main__':
