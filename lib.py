@@ -14,7 +14,7 @@ CONF = str()
 MASTER = str()
 
 
-if "macOS" or "linux" in platform.platform().lower():
+if "macos" or "linux" in platform.platform().lower():
     CONF = expanduser("~")+"/.sb/"
 else: 
     sys.stderr.write("No preset config path for windows yet! Please enter Config path to use: ")
